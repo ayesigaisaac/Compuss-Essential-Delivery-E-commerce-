@@ -31,11 +31,21 @@ export default function App() {
 
   return (
     <CartProvider>
-      <div className="min-h-screen bg-offwhite flex flex-col">
+      <div className="min-h-screen bg-offwhite flex flex-col overflow-x-hidden">
         <Header activePage={activePage} setActivePage={setActivePage} />
         <main className="flex-1">{renderPage()}</main>
-        <footer className="bg-navy text-white/70 text-center text-sm py-6 mt-8">
-          <p>© {new Date().getFullYear()} Campus Essentials Delivery — Serving students across Uganda 🇺🇬</p>
+        <footer className="bg-navy text-white/70 mt-8">
+          <div className="max-w-6xl mx-auto px-4 sm:px-6 py-8 flex flex-col sm:flex-row items-center justify-between gap-3 text-center sm:text-left">
+            <div className="flex items-center gap-2 font-bold text-white text-sm">
+              <span className="w-7 h-7 rounded-lg bg-coral flex items-center justify-center text-sm">
+                🎒
+              </span>
+              Campus Essentials Delivery
+            </div>
+            <p className="text-xs sm:text-sm">
+              © {new Date().getFullYear()} Serving students across Uganda 🇺🇬
+            </p>
+          </div>
         </footer>
       </div>
     </CartProvider>
