@@ -7,6 +7,13 @@ export const CATEGORY_ICONS = {
   Printing: '🖨️',
 }
 
+export const CATEGORY_TINT = {
+  Stationery: 'from-navy/10 via-navy/5 to-transparent',
+  Snacks: 'from-coral/20 via-coral/5 to-transparent',
+  'Data Bundles': 'from-gold/50 via-gold/15 to-transparent',
+  Printing: 'from-navy/10 via-coral/5 to-transparent',
+}
+
 export const products = [
   // Stationery
   { id: 1, name: 'Pen (Blue, Pack of 3)', category: 'Stationery', price: 1500, icon: '🖊️', rating: 4.5, sold: 312, tag: 'Best Seller' },

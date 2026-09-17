@@ -1,5 +1,5 @@
 import { useMemo, useState } from 'react'
-import { products, CATEGORIES, CATEGORY_ICONS } from '../data/products.js'
+import { products, CATEGORIES, CATEGORY_ICONS, CATEGORY_TINT } from '../data/products.js'
 import { useCart } from '../CartContext.jsx'
 
 function formatUGX(amount) {
@@ -163,8 +163,10 @@ export default function Shop({ categoryFilter, setCategoryFilter, searchQuery, s
                     {product.tag}
                   </span>
                 )}
-                <div className="w-full aspect-square rounded-xl bg-navy/5 flex items-center justify-center text-4xl sm:text-5xl mb-3 transition-transform group-hover:scale-105">
-                  {product.icon}
+                <div
+                  className={`relative w-full aspect-square rounded-xl bg-gradient-to-br ${CATEGORY_TINT[product.category]} ring-1 ring-navy/5 flex items-center justify-center text-4xl sm:text-5xl mb-3 overflow-hidden transition-transform group-hover:scale-[1.03]`}
+                >
+                  <span className="drop-shadow-sm">{product.icon}</span>
                 </div>
                 <h3 className="text-navy font-medium text-xs sm:text-sm mb-1 line-clamp-2 leading-snug min-h-[2.5em]">
                   {product.name}

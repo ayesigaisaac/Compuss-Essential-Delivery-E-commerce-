@@ -1,5 +1,5 @@
 import { useCart } from '../CartContext.jsx'
-import { products, CATEGORIES, CATEGORY_ICONS } from '../data/products.js'
+import { products, CATEGORIES, CATEGORY_ICONS, CATEGORY_TINT } from '../data/products.js'
 
 function formatUGX(amount) {
   return `UGX ${amount.toLocaleString()}`
@@ -7,9 +7,9 @@ function formatUGX(amount) {
 
 const promoTiles = [
   { category: 'Snacks', title: 'Snack Cravings', desc: 'From UGX 1,500', tint: 'bg-coral/10' },
-  { category: 'Data Bundles', title: 'Data Deals', desc: 'MTN & Airtel bundles', tint: 'bg-navy/5' },
-  { category: 'Stationery', title: 'Back to Class', desc: 'Pens, books & more', tint: 'bg-gold/30' },
-  { category: 'Printing', title: 'Print & Bind', desc: 'From UGX 100/page', tint: 'bg-coral/10' },
+  { category: 'Data Bundles', title: 'Data Deals', desc: 'MTN & Airtel bundles', tint: 'bg-gold/40' },
+  { category: 'Stationery', title: 'Back to Class', desc: 'Pens, books & more', tint: 'bg-navy/8' },
+  { category: 'Printing', title: 'Print & Bind', desc: 'From UGX 100/page', tint: 'bg-coral/20' },
 ]
 
 export default function Home({ setActivePage, setCategoryFilter }) {
@@ -119,8 +119,10 @@ export default function Home({ setActivePage, setCategoryFilter }) {
               key={product.id}
               className="group bg-white rounded-2xl shadow-card hover:shadow-card-hover transition-all p-3.5 sm:p-4 flex flex-col hover:-translate-y-1"
             >
-              <div className="w-full aspect-square rounded-xl bg-navy/5 flex items-center justify-center text-4xl sm:text-5xl mb-3 transition-transform group-hover:scale-105">
-                {product.icon}
+              <div
+                className={`relative w-full aspect-square rounded-xl bg-gradient-to-br ${CATEGORY_TINT[product.category]} ring-1 ring-navy/5 flex items-center justify-center text-4xl sm:text-5xl mb-3 overflow-hidden transition-transform group-hover:scale-[1.03]`}
+              >
+                <span className="drop-shadow-sm">{product.icon}</span>
               </div>
               <h3 className="text-navy font-medium text-xs sm:text-sm mb-1 line-clamp-2 leading-snug min-h-[2.5em]">
                 {product.name}
