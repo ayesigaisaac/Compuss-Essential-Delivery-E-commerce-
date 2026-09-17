@@ -1,10 +1,19 @@
 import { useEffect, useState } from 'react'
 import { useCart } from '../CartContext.jsx'
+import { CATEGORIES, CATEGORY_ICONS } from '../data/products.js'
 
-export default function Header({ activePage, setActivePage }) {
+export default function Header({
+  activePage,
+  setActivePage,
+  searchQuery,
+  setSearchQuery,
+  setCategoryFilter,
+}) {
   const { itemCount } = useCart()
   const [scrolled, setScrolled] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
+  const [mobileSearchOpen, setMobileSearchOpen] = useState(false)
+  const [localQuery, setLocalQuery] = useState(searchQuery || '')
 
   useEffect(() => {
     function onScroll() {
@@ -24,31 +33,58 @@ export default function Header({ activePage, setActivePage }) {
     setMenuOpen(false)
   }
 
+  function submitSearch(e) {
+    e.preventDefault()
+    setSearchQuery(localQuery)
+    setCategoryFilter('All')
+    setActivePage('shop')
+    setMobileSearchOpen(false)
+    setMenuOpen(false)
+  }
+
   return (
     <header
-      className={`sticky top-0 z-30 transition-shadow duration-300 bg-navy/95 backdrop-blur-md text-white ${
+      className={`sticky top-0 z-30 transition-shadow duration-300 bg-navy text-white ${
         scrolled ? 'shadow-nav' : ''
       }`}
     >
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 py-3 flex items-center justify-between">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 py-3 flex items-center gap-3 sm:gap-6">
         <button
           onClick={() => go('home')}
-          className="flex items-center gap-2 font-extrabold text-base sm:text-xl tracking-tight"
+          className="flex items-center gap-2 font-extrabold text-base sm:text-lg tracking-tight shrink-0"
         >
           <span className="w-9 h-9 rounded-xl bg-coral flex items-center justify-center text-lg shrink-0">
             🎒
           </span>
-          <span className="hidden xs:inline sm:inline">Campus Essentials</span>
-          <span className="xs:hidden sm:hidden">CED</span>
+          <span className="hidden md:inline">Campus Essentials</span>
         </button>
 
-        <div className="flex items-center gap-2 sm:gap-6">
-          <nav className="hidden sm:flex items-center gap-5">
+        <form
+          onSubmit={submitSearch}
+          className="hidden sm:flex flex-1 max-w-2xl items-center bg-white rounded-xl overflow-hidden shadow-sm"
+        >
+          <input
+            type="text"
+            value={localQuery}
+            onChange={(e) => setLocalQuery(e.target.value)}
+            placeholder="Search for snacks, data bundles, printing..."
+            className="flex-1 px-4 py-2.5 text-navy text-sm placeholder:text-navy/40 focus:outline-none"
+          />
+          <button
+            type="submit"
+            className="bg-coral hover:bg-coral-dark text-white px-5 py-2.5 text-sm font-semibold transition-colors"
+          >
+            Search
+          </button>
+        </form>
+
+        <div className="flex items-center gap-1.5 sm:gap-4 ml-auto">
+          <nav className="hidden md:flex items-center gap-5">
             {navLinks.map((link) => (
               <button
                 key={link.key}
                 onClick={() => go(link.key)}
-                className={`relative text-sm font-medium transition-colors py-1 ${
+                className={`relative text-sm font-medium transition-colors py-1 whitespace-nowrap ${
                   activePage === link.key ? 'text-gold' : 'text-white/85 hover:text-gold'
                 }`}
               >
@@ -59,6 +95,14 @@ export default function Header({ activePage, setActivePage }) {
               </button>
             ))}
           </nav>
+
+          <button
+            onClick={() => setMobileSearchOpen((v) => !v)}
+            className="sm:hidden flex items-center justify-center w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 transition-colors"
+            aria-label="Toggle search"
+          >
+            <span className="text-lg">🔍</span>
+          </button>
 
           <button
             onClick={() => go('cart')}
@@ -75,7 +119,7 @@ export default function Header({ activePage, setActivePage }) {
 
           <button
             onClick={() => setMenuOpen((v) => !v)}
-            className="sm:hidden flex items-center justify-center w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 transition-colors"
+            className="md:hidden flex items-center justify-center w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 transition-colors"
             aria-label="Toggle menu"
           >
             <span className="text-lg">{menuOpen ? '✕' : '☰'}</span>
@@ -83,8 +127,30 @@ export default function Header({ activePage, setActivePage }) {
         </div>
       </div>
 
+      {mobileSearchOpen && (
+        <form
+          onSubmit={submitSearch}
+          className="sm:hidden flex items-center bg-white mx-4 mb-3 rounded-xl overflow-hidden shadow-sm animate-fade-in"
+        >
+          <input
+            type="text"
+            autoFocus
+            value={localQuery}
+            onChange={(e) => setLocalQuery(e.target.value)}
+            placeholder="Search products..."
+            className="flex-1 px-4 py-2.5 text-navy text-sm placeholder:text-navy/40 focus:outline-none"
+          />
+          <button
+            type="submit"
+            className="bg-coral hover:bg-coral-dark text-white px-4 py-2.5 text-sm font-semibold transition-colors"
+          >
+            Go
+          </button>
+        </form>
+      )}
+
       {menuOpen && (
-        <nav className="sm:hidden bg-navy-dark border-t border-white/10 px-4 py-3 flex flex-col gap-1 animate-fade-in">
+        <nav className="md:hidden bg-navy-dark border-t border-white/10 px-4 py-3 flex flex-col gap-1 animate-fade-in">
           {navLinks.map((link) => (
             <button
               key={link.key}
@@ -98,6 +164,37 @@ export default function Header({ activePage, setActivePage }) {
           ))}
         </nav>
       )}
+
+      <div className="hidden sm:block bg-navy-dark/60 border-t border-white/5">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 flex items-center gap-5 overflow-x-auto no-scrollbar py-2">
+          <button
+            onClick={() => {
+              setCategoryFilter('All')
+              setSearchQuery('')
+              setLocalQuery('')
+              go('shop')
+            }}
+            className="text-xs sm:text-sm font-medium text-white/80 hover:text-gold whitespace-nowrap transition-colors"
+          >
+            All Categories
+          </button>
+          {CATEGORIES.map((cat) => (
+            <button
+              key={cat}
+              onClick={() => {
+                setCategoryFilter(cat)
+                setSearchQuery('')
+                setLocalQuery('')
+                go('shop')
+              }}
+              className="flex items-center gap-1.5 text-xs sm:text-sm font-medium text-white/80 hover:text-gold whitespace-nowrap transition-colors"
+            >
+              <span>{CATEGORY_ICONS[cat]}</span>
+              {cat}
+            </button>
+          ))}
+        </div>
+      </div>
     </header>
   )
 }

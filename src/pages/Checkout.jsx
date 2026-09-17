@@ -72,7 +72,7 @@ export default function Checkout({ setActivePage, setLastOrder }) {
   }
 
   return (
-    <div className="max-w-6xl mx-auto px-4 sm:px-6 py-8 sm:py-10">
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 py-8 sm:py-10">
       <h1 className="text-navy text-2xl sm:text-3xl font-extrabold mb-6 sm:mb-8">Checkout</h1>
 
       <div className="grid lg:grid-cols-3 gap-6 lg:gap-8 items-start">
