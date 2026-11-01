@@ -10,7 +10,7 @@ export default function Checkout({ setActivePage, setLastOrder }) {
   const [form, setForm] = useState({
     name: '',
     phone: '',
-    room: '',
+    address: '',
     payment: '',
   })
   const [errors, setErrors] = useState({})
@@ -23,7 +23,7 @@ export default function Checkout({ setActivePage, setLastOrder }) {
     const newErrors = {}
     if (!form.name.trim()) newErrors.name = 'Full name is required'
     if (!form.phone.trim()) newErrors.phone = 'Phone number is required'
-    if (!form.room.trim()) newErrors.room = 'Hostel/room number is required'
+    if (!form.address.trim()) newErrors.address = 'Delivery address is required'
     if (!form.payment) newErrors.payment = 'Please select a payment method'
     return newErrors
   }
@@ -34,12 +34,12 @@ export default function Checkout({ setActivePage, setLastOrder }) {
     setErrors(newErrors)
     if (Object.keys(newErrors).length > 0) return
 
-    const orderNumber = `CED-${Math.floor(100000 + Math.random() * 900000)}`
+    const orderNumber = `RFM-${Math.floor(100000 + Math.random() * 900000)}`
     setLastOrder({
       orderNumber,
       name: form.name,
       phone: form.phone,
-      room: form.room,
+      address: form.address,
       payment: form.payment,
       total,
     })
@@ -112,18 +112,18 @@ export default function Checkout({ setActivePage, setLastOrder }) {
           </div>
 
           <div>
-            <label className="block text-navy font-semibold text-sm mb-1.5" htmlFor="room">
-              Hostel / Room Number
+            <label className="block text-navy font-semibold text-sm mb-1.5" htmlFor="address">
+              Delivery Address
             </label>
             <input
-              id="room"
+              id="address"
               type="text"
-              value={form.room}
-              onChange={(e) => handleChange('room', e.target.value)}
-              className={inputClass('room')}
-              placeholder="e.g. Block C, Room 14"
+              value={form.address}
+              onChange={(e) => handleChange('address', e.target.value)}
+              className={inputClass('address')}
+              placeholder="e.g. Plot 12, Ntinda Road, Kampala"
             />
-            {errors.room && <p className="text-coral text-xs mt-1.5 font-medium">{errors.room}</p>}
+            {errors.address && <p className="text-coral text-xs mt-1.5 font-medium">{errors.address}</p>}
           </div>
 
           <div>

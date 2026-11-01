@@ -2,7 +2,7 @@ import { createContext, useContext, useState, useMemo } from 'react'
 
 const CartContext = createContext(null)
 
-export const DELIVERY_FEE = 2000
+export const DELIVERY_FEE = 20000
 
 export function CartProvider({ children }) {
   const [items, setItems] = useState([]) // { id, name, price, icon, quantity }

@@ -35,7 +35,7 @@ export default function OrderConfirmation({ lastOrder, setActivePage }) {
           </div>
           <div className="flex justify-between text-sm mb-3">
             <span className="text-navy/60">Delivering To</span>
-            <span className="text-navy font-medium">{lastOrder.room}</span>
+            <span className="text-navy font-medium">{lastOrder.address}</span>
           </div>
           <div className="flex justify-between text-sm mb-3">
             <span className="text-navy/60">Payment Method</span>
@@ -47,7 +47,7 @@ export default function OrderConfirmation({ lastOrder, setActivePage }) {
           </div>
           <div className="flex justify-between text-sm">
             <span className="text-navy/60">Estimated Delivery</span>
-            <span className="text-navy font-medium">30–45 minutes</span>
+            <span className="text-navy font-medium">1–2 days</span>
           </div>
         </div>
 

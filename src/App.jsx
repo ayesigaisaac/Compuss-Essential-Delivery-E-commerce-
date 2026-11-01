@@ -58,12 +58,12 @@ export default function App() {
           <div className="max-w-7xl mx-auto px-4 sm:px-6 py-8 flex flex-col sm:flex-row items-center justify-between gap-3 text-center sm:text-left">
             <div className="flex items-center gap-2 font-bold text-white text-sm">
               <span className="w-7 h-7 rounded-lg bg-coral flex items-center justify-center text-sm">
-                🎒
+                🌹
               </span>
-              Campus Essentials Delivery
+              Roseform Mattress
             </div>
             <p className="text-xs sm:text-sm">
-              © {new Date().getFullYear()} Serving students across Uganda 🇺🇬
+              © {new Date().getFullYear()} Better sleep, delivered across Uganda 🇺🇬
             </p>
           </div>
         </footer>

@@ -54,9 +54,9 @@ export default function Header({
           className="flex items-center gap-2 font-extrabold text-base sm:text-lg tracking-tight shrink-0"
         >
           <span className="w-9 h-9 rounded-xl bg-coral flex items-center justify-center text-lg shrink-0">
-            🎒
+            🌹
           </span>
-          <span className="hidden md:inline">Campus Essentials</span>
+          <span className="hidden md:inline">Roseform Mattress</span>
         </button>
 
         <form
@@ -67,7 +67,7 @@ export default function Header({
             type="text"
             value={localQuery}
             onChange={(e) => setLocalQuery(e.target.value)}
-            placeholder="Search for snacks, data bundles, printing..."
+            placeholder="Search mattresses, pillows, bedding..."
             className="flex-1 px-4 py-2.5 text-navy text-sm placeholder:text-navy/40 focus:outline-none"
           />
           <button

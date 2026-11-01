@@ -6,10 +6,10 @@ function formatUGX(amount) {
 }
 
 const promoTiles = [
-  { category: 'Snacks', title: 'Snack Cravings', desc: 'From UGX 1,500', tint: 'bg-coral/10' },
-  { category: 'Data Bundles', title: 'Data Deals', desc: 'MTN & Airtel bundles', tint: 'bg-gold/40' },
-  { category: 'Stationery', title: 'Back to Class', desc: 'Pens, books & more', tint: 'bg-navy/8' },
-  { category: 'Printing', title: 'Print & Bind', desc: 'From UGX 100/page', tint: 'bg-coral/20' },
+  { category: 'Mattresses', title: 'Mattresses', desc: 'From UGX 180,000', tint: 'bg-coral/10' },
+  { category: 'Pillows', title: 'Pillows', desc: 'Fibre & memory foam', tint: 'bg-gold/40' },
+  { category: 'Bedding', title: 'Bedding', desc: 'Sheets, duvets & more', tint: 'bg-navy/8' },
+  { category: 'Bed Bases', title: 'Bed Bases', desc: 'Frames, divans & bunks', tint: 'bg-coral/20' },
 ]
 
 export default function Home({ setActivePage, setCategoryFilter }) {
@@ -37,14 +37,14 @@ export default function Home({ setActivePage, setCategoryFilter }) {
               aria-hidden="true"
             />
             <span className="relative inline-block w-fit bg-white/10 text-gold text-xs font-semibold px-3 py-1 rounded-full mb-4 animate-fade-up">
-              🇺🇬 Campus delivery, every day
+              🌹 Made for better sleep
             </span>
             <h1 className="relative text-3xl sm:text-4xl lg:text-5xl font-extrabold mb-3 leading-tight animate-fade-up [animation-delay:100ms]">
-              Everything a student <span className="text-gold">needs</span>, delivered fast
+              Sleep <span className="text-gold">better</span> on a Roseform mattress
             </h1>
             <p className="relative text-white/75 max-w-md mb-6 text-sm sm:text-base animate-fade-up [animation-delay:200ms]">
-              Snacks, stationery, data bundles and printing — ordered in seconds, at your
-              hostel door in 30–45 minutes.
+              Quality foam and spring mattresses, pillows, bedding and beds — delivered to
+              your door anywhere in Uganda.
             </p>
             <div className="relative animate-fade-up [animation-delay:300ms]">
               <button
