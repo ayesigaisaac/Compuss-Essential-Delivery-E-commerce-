@@ -1,12 +1,12 @@
-import { ArrowRight, Banknote, Moon, ShieldCheck, Truck } from 'lucide-react'
+import { ArrowRight, BadgeCheck, Headset, ShieldCheck, Truck } from 'lucide-react'
 import ProductCard from '../components/ProductCard.jsx'
 import { products, CATEGORIES, CATEGORY_IMAGES, HERO_IMAGE, unsplash } from '../data/products.js'
 
 const trustSignals = [
-  { icon: Truck, title: 'Free Delivery in Kampala', desc: 'Delivered to your door' },
-  { icon: ShieldCheck, title: '10-Year Warranty', desc: 'On every Roseform mattress' },
-  { icon: Moon, title: '100-Night Sleep Trial', desc: 'Sleep on it, risk-free' },
-  { icon: Banknote, title: 'Cash on Delivery Available', desc: 'Or pay with Mobile Money' },
+  { icon: BadgeCheck, title: 'Quality Guaranteed', desc: 'Carefully made and inspected' },
+  { icon: ShieldCheck, title: 'Secure Payments', desc: 'Cash / Mobile Money' },
+  { icon: Truck, title: 'Fast Delivery in Kampala', desc: 'Delivered to your door' },
+  { icon: Headset, title: 'Expert Support', desc: 'Help choosing the right mattress' },
 ]
 
 export default function Home({ setActivePage, setCategoryFilter }) {

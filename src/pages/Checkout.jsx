@@ -1,10 +1,13 @@
 import { useState } from 'react'
+import { Banknote, Smartphone } from 'lucide-react'
 import { useCart } from '../CartContext.jsx'
 import { unsplash } from '../data/products.js'
+import { PAYMENT_METHODS, formatUGX, generateOrderNumber, saveOrder } from '../orders.js'
 
-function formatUGX(amount) {
-  return `UGX ${amount.toLocaleString()}`
-}
+const paymentOptions = [
+  { value: 'cod', icon: Banknote, hint: 'Pay in cash when your order arrives' },
+  { value: 'momo', icon: Smartphone, hint: 'Pay via MTN or Airtel Mobile Money' },
+]
 
 export default function Checkout({ setActivePage, setLastOrder }) {
   const { items, subtotal, deliveryFee, total, clearCart } = useCart()
@@ -12,7 +15,7 @@ export default function Checkout({ setActivePage, setLastOrder }) {
     name: '',
     phone: '',
     address: '',
-    payment: '',
+    payment: 'cod',
   })
   const [errors, setErrors] = useState({})
 
@@ -23,7 +26,9 @@ export default function Checkout({ setActivePage, setLastOrder }) {
   function validate() {
     const newErrors = {}
     if (!form.name.trim()) newErrors.name = 'Full name is required'
-    if (!form.phone.trim()) newErrors.phone = 'Phone number is required'
+    const phoneDigits = form.phone.replace(/\D/g, '')
+    if (!phoneDigits) newErrors.phone = 'Phone number is required'
+    else if (phoneDigits.length < 10) newErrors.phone = 'Phone number must be at least 10 digits'
     if (!form.address.trim()) newErrors.address = 'Delivery address is required'
     if (!form.payment) newErrors.payment = 'Please select a payment method'
     return newErrors
@@ -35,15 +40,20 @@ export default function Checkout({ setActivePage, setLastOrder }) {
     setErrors(newErrors)
     if (Object.keys(newErrors).length > 0) return
 
-    const orderNumber = `RFM-${Math.floor(100000 + Math.random() * 900000)}`
-    setLastOrder({
-      orderNumber,
-      name: form.name,
-      phone: form.phone,
-      address: form.address,
-      payment: form.payment,
+    const order = {
+      orderNumber: generateOrderNumber(),
+      createdAt: new Date().toISOString(),
+      name: form.name.trim(),
+      phone: form.phone.trim(),
+      address: form.address.trim(),
+      payment: PAYMENT_METHODS[form.payment],
+      items: items.map(({ id, name, price, quantity }) => ({ id, name, price, quantity })),
+      subtotal,
+      deliveryFee,
       total,
-    })
+    }
+    saveOrder(order)
+    setLastOrder(order)
     clearCart()
     setActivePage('confirmation')
   }
@@ -130,10 +140,7 @@ export default function Checkout({ setActivePage, setLastOrder }) {
           <div>
             <span className="block text-navy font-semibold text-sm mb-2">Payment Method</span>
             <div className="grid sm:grid-cols-2 gap-3">
-              {[
-                { value: 'Mobile Money - MTN', label: 'Mobile Money – MTN', dot: 'bg-yellow-400' },
-                { value: 'Mobile Money - Airtel', label: 'Mobile Money – Airtel', dot: 'bg-red-500' },
-              ].map((opt) => (
+              {paymentOptions.map((opt) => (
                 <label
                   key={opt.value}
                   className={`flex items-center gap-3 text-navy text-sm rounded-xl px-4 py-3.5 cursor-pointer border transition-all ${
@@ -150,8 +157,11 @@ export default function Checkout({ setActivePage, setLastOrder }) {
                     onChange={(e) => handleChange('payment', e.target.value)}
                     className="accent-coral w-4 h-4"
                   />
-                  <span className={`w-3 h-3 rounded-full ${opt.dot}`} />
-                  <span className="font-medium">{opt.label}</span>
+                  <opt.icon className="w-5 h-5 shrink-0 text-navy/60" strokeWidth={1.75} />
+                  <span>
+                    <span className="block font-medium">{PAYMENT_METHODS[opt.value]}</span>
+                    <span className="block text-xs text-navy/50">{opt.hint}</span>
+                  </span>
                 </label>
               ))}
             </div>

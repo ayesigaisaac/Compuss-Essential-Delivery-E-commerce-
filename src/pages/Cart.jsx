@@ -1,10 +1,7 @@
 import { ShoppingBag, X } from 'lucide-react'
 import { useCart } from '../CartContext.jsx'
 import { unsplash } from '../data/products.js'
-
-function formatUGX(amount) {
-  return `UGX ${amount.toLocaleString()}`
-}
+import { formatUGX } from '../orders.js'
 
 export default function Cart({ setActivePage }) {
   const { items, updateQuantity, removeFromCart, subtotal, deliveryFee, total } = useCart()
