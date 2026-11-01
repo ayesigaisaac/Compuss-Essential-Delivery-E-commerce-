@@ -1,4 +1,6 @@
+import { ShoppingBag, X } from 'lucide-react'
 import { useCart } from '../CartContext.jsx'
+import { unsplash } from '../data/products.js'
 
 function formatUGX(amount) {
   return `UGX ${amount.toLocaleString()}`
@@ -10,7 +12,7 @@ export default function Cart({ setActivePage }) {
   if (items.length === 0) {
     return (
       <div className="max-w-3xl mx-auto px-4 py-20 sm:py-28 text-center">
-        <div className="text-6xl sm:text-7xl mb-5">🛒</div>
+        <ShoppingBag className="w-16 h-16 mx-auto mb-5 text-navy/20" strokeWidth={1.25} />
         <h1 className="text-navy text-2xl sm:text-3xl font-extrabold mb-2">Your cart is empty</h1>
         <p className="text-navy/60 mb-8 text-sm sm:text-base">
           Add some items from the shop to get started.
@@ -36,9 +38,11 @@ export default function Cart({ setActivePage }) {
               key={item.id}
               className="bg-white rounded-2xl shadow-card p-4 sm:p-5 flex items-center gap-3 sm:gap-4"
             >
-              <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-xl bg-navy/5 flex items-center justify-center text-2xl sm:text-3xl shrink-0">
-                {item.icon}
-              </div>
+              <img
+                src={unsplash(item.image, 160)}
+                alt={item.name}
+                className="w-14 h-14 sm:w-16 sm:h-16 rounded-xl object-cover bg-gray-50 shrink-0"
+              />
               <div className="flex-1 min-w-0">
                 <h3 className="text-navy font-semibold text-sm sm:text-base truncate">
                   {item.name}
@@ -70,7 +74,7 @@ export default function Cart({ setActivePage }) {
                 aria-label="Remove item"
                 title="Remove"
               >
-                ✕
+                <X className="w-4 h-4" />
               </button>
             </div>
           ))}

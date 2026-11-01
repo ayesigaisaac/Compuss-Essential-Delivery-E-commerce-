@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { useCart } from '../CartContext.jsx'
+import { unsplash } from '../data/products.js'
 
 function formatUGX(amount) {
   return `UGX ${amount.toLocaleString()}`
@@ -130,8 +131,8 @@ export default function Checkout({ setActivePage, setLastOrder }) {
             <span className="block text-navy font-semibold text-sm mb-2">Payment Method</span>
             <div className="grid sm:grid-cols-2 gap-3">
               {[
-                { value: 'Mobile Money - MTN', label: 'Mobile Money – MTN', icon: '🟡' },
-                { value: 'Mobile Money - Airtel', label: 'Mobile Money – Airtel', icon: '🔴' },
+                { value: 'Mobile Money - MTN', label: 'Mobile Money – MTN', dot: 'bg-yellow-400' },
+                { value: 'Mobile Money - Airtel', label: 'Mobile Money – Airtel', dot: 'bg-red-500' },
               ].map((opt) => (
                 <label
                   key={opt.value}
@@ -149,7 +150,7 @@ export default function Checkout({ setActivePage, setLastOrder }) {
                     onChange={(e) => handleChange('payment', e.target.value)}
                     className="accent-coral w-4 h-4"
                   />
-                  <span className="text-lg">{opt.icon}</span>
+                  <span className={`w-3 h-3 rounded-full ${opt.dot}`} />
                   <span className="font-medium">{opt.label}</span>
                 </label>
               ))}
@@ -170,7 +171,7 @@ export default function Checkout({ setActivePage, setLastOrder }) {
           <div className="flex flex-col gap-2.5 mb-4 max-h-56 overflow-y-auto pr-1">
             {items.map((item) => (
               <div key={item.id} className="flex items-center gap-3 text-sm">
-                <span className="text-xl">{item.icon}</span>
+                <img src={unsplash(item.image, 96)} alt="" className="w-9 h-9 rounded-lg object-cover bg-gray-50 shrink-0" />
                 <span className="flex-1 text-navy/80 truncate">
                   {item.name} <span className="text-navy/40">×{item.quantity}</span>
                 </span>

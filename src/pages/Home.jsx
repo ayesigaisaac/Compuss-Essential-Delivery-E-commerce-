@@ -1,145 +1,119 @@
-import { useCart } from '../CartContext.jsx'
-import { products, CATEGORIES, CATEGORY_ICONS, CATEGORY_TINT } from '../data/products.js'
+import { ArrowRight, Banknote, Moon, ShieldCheck, Truck } from 'lucide-react'
+import ProductCard from '../components/ProductCard.jsx'
+import { products, CATEGORIES, CATEGORY_IMAGES, HERO_IMAGE, unsplash } from '../data/products.js'
 
-function formatUGX(amount) {
-  return `UGX ${amount.toLocaleString()}`
-}
-
-const promoTiles = [
-  { category: 'Mattresses', title: 'Mattresses', desc: 'From UGX 180,000', tint: 'bg-coral/10' },
-  { category: 'Pillows', title: 'Pillows', desc: 'Fibre & memory foam', tint: 'bg-gold/40' },
-  { category: 'Bedding', title: 'Bedding', desc: 'Sheets, duvets & more', tint: 'bg-navy/8' },
-  { category: 'Bed Bases', title: 'Bed Bases', desc: 'Frames, divans & bunks', tint: 'bg-coral/20' },
+const trustSignals = [
+  { icon: Truck, title: 'Free Delivery in Kampala', desc: 'Delivered to your door' },
+  { icon: ShieldCheck, title: '10-Year Warranty', desc: 'On every Roseform mattress' },
+  { icon: Moon, title: '100-Night Sleep Trial', desc: 'Sleep on it, risk-free' },
+  { icon: Banknote, title: 'Cash on Delivery Available', desc: 'Or pay with Mobile Money' },
 ]
 
 export default function Home({ setActivePage, setCategoryFilter }) {
-  const { addToCart } = useCart()
-
   function goToCategory(category) {
     setCategoryFilter(category)
     setActivePage('shop')
   }
 
-  const dealProducts = [...products].sort((a, b) => b.sold - a.sold).slice(0, 8)
+  const trendingProducts = [...products].sort((a, b) => b.sold - a.sold).slice(0, 8)
 
   return (
-    <div className="bg-offwhite">
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 pt-5 sm:pt-8">
-        <div className="grid lg:grid-cols-[1.4fr_1fr] gap-3 sm:gap-4">
-          <div className="relative overflow-hidden rounded-2xl bg-navy text-white p-6 sm:p-10 lg:p-12 min-h-[260px] sm:min-h-[320px] flex flex-col justify-center">
-            <div
-              className="absolute -top-20 -right-20 w-64 h-64 rounded-full bg-coral/25 blur-3xl animate-float"
-              aria-hidden="true"
-            />
-            <div
-              className="absolute -bottom-16 left-1/3 w-56 h-56 rounded-full bg-gold/10 blur-3xl animate-float"
-              style={{ animationDelay: '1.5s' }}
-              aria-hidden="true"
-            />
-            <span className="relative inline-block w-fit bg-white/10 text-gold text-xs font-semibold px-3 py-1 rounded-full mb-4 animate-fade-up">
-              🌹 Made for better sleep
-            </span>
-            <h1 className="relative text-3xl sm:text-4xl lg:text-5xl font-extrabold mb-3 leading-tight animate-fade-up [animation-delay:100ms]">
-              Sleep <span className="text-gold">better</span> on a Roseform mattress
-            </h1>
-            <p className="relative text-white/75 max-w-md mb-6 text-sm sm:text-base animate-fade-up [animation-delay:200ms]">
-              Quality foam and spring mattresses, pillows, bedding and beds — delivered to
-              your door anywhere in Uganda.
-            </p>
-            <div className="relative animate-fade-up [animation-delay:300ms]">
-              <button
-                onClick={() => setActivePage('shop')}
-                className="bg-coral hover:bg-coral-dark text-white font-semibold px-7 py-3 rounded-xl shadow-lg shadow-coral/30 transition-all hover:-translate-y-0.5 active:translate-y-0"
-              >
-                Shop Now
-              </button>
-            </div>
+    <div className="bg-white">
+      <section className="grid lg:grid-cols-2 lg:min-h-[640px] bg-[#F7F4F0]">
+        <div className="flex flex-col justify-center px-6 py-16 sm:px-12 sm:py-20 lg:px-16 xl:pl-[max(4rem,calc((100vw-80rem)/2+1.5rem))] xl:pr-20">
+          <p className="mb-5 text-xs font-semibold uppercase tracking-[0.25em] text-coral animate-fade-up">
+            Roseform Mattress
+          </p>
+          <h1 className="mb-6 font-display text-4xl font-medium leading-[1.05] tracking-tight text-navy sm:text-5xl xl:text-6xl animate-fade-up [animation-delay:100ms]">
+            Experience Deep, Restorative Sleep.
+          </h1>
+          <p className="mb-10 max-w-md text-base leading-relaxed text-navy/60 sm:text-lg animate-fade-up [animation-delay:200ms]">
+            Premium mattresses crafted for the perfect night's rest. Delivered across Uganda.
+          </p>
+          <div className="animate-fade-up [animation-delay:300ms]">
+            <button
+              onClick={() => goToCategory('Mattresses')}
+              className="group inline-flex items-center gap-3 rounded-full bg-coral px-8 py-4 text-sm font-semibold text-white shadow-xl shadow-coral/25 transition-all hover:bg-coral-dark hover:shadow-2xl hover:shadow-coral/30"
+            >
+              Shop Mattresses
+              <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+            </button>
           </div>
-
-          <div className="grid grid-cols-2 gap-3 sm:gap-4">
-            {promoTiles.map((tile) => (
-              <button
-                key={tile.title}
-                onClick={() => goToCategory(tile.category)}
-                className={`group rounded-2xl ${tile.tint} p-4 sm:p-5 flex flex-col justify-between text-left hover:shadow-card-hover transition-all hover:-translate-y-0.5 min-h-[120px] sm:min-h-[150px]`}
-              >
-                <span className="text-2xl sm:text-3xl">{CATEGORY_ICONS[tile.category]}</span>
-                <div>
-                  <p className="text-navy font-bold text-xs sm:text-sm">{tile.title}</p>
-                  <p className="text-navy/60 text-[11px] sm:text-xs">{tile.desc}</p>
-                </div>
-              </button>
-            ))}
-          </div>
+        </div>
+        <div className="relative h-[360px] sm:h-[480px] lg:h-auto">
+          <img
+            src={unsplash(HERO_IMAGE, 1600)}
+            alt="A made bed with white linen and a tufted headboard"
+            className="absolute inset-0 h-full w-full object-cover"
+          />
         </div>
       </section>
 
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 py-8 sm:py-10">
-        <div className="flex items-center gap-2 overflow-x-auto no-scrollbar pb-1">
-          <button
-            onClick={() => goToCategory('All')}
-            className="flex flex-col items-center gap-2 shrink-0 group"
-          >
-            <span className="w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-navy/5 flex items-center justify-center text-2xl sm:text-3xl transition-transform group-hover:scale-110">
-              🗂️
-            </span>
-            <span className="text-navy text-xs font-medium">All</span>
-          </button>
+      <section className="border-b border-navy/5">
+        <div className="mx-auto grid max-w-7xl grid-cols-2 gap-y-8 px-6 py-10 lg:grid-cols-4 lg:divide-x lg:divide-navy/10">
+          {trustSignals.map(({ icon: Icon, title, desc }) => (
+            <div key={title} className="flex flex-col items-center gap-3 px-4 text-center sm:flex-row sm:text-left lg:justify-center">
+              <Icon className="h-6 w-6 shrink-0 text-coral" strokeWidth={1.5} />
+              <div>
+                <p className="text-sm font-semibold text-navy">{title}</p>
+                <p className="text-xs text-navy/50">{desc}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section className="mx-auto max-w-7xl px-6 py-20 sm:py-24">
+        <div className="mb-10 sm:mb-12">
+          <p className="mb-3 text-xs font-semibold uppercase tracking-[0.25em] text-coral">Collections</p>
+          <h2 className="font-display text-3xl font-medium tracking-tight text-navy sm:text-4xl">
+            Shop by Category
+          </h2>
+        </div>
+        <div className="grid grid-cols-2 gap-4 sm:gap-6 lg:grid-cols-4">
           {CATEGORIES.map((cat) => (
             <button
               key={cat}
               onClick={() => goToCategory(cat)}
-              className="flex flex-col items-center gap-2 shrink-0 group"
+              className="group relative aspect-[3/4] overflow-hidden rounded-2xl shadow-sm transition-shadow hover:shadow-xl"
             >
-              <span className="w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-coral/10 flex items-center justify-center text-2xl sm:text-3xl transition-transform group-hover:scale-110">
-                {CATEGORY_ICONS[cat]}
-              </span>
-              <span className="text-navy text-xs font-medium whitespace-nowrap">{cat}</span>
+              <img
+                src={unsplash(CATEGORY_IMAGES[cat], 700)}
+                alt={cat}
+                loading="lazy"
+                className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/15 to-transparent" />
+              <div className="absolute inset-x-0 bottom-0 flex flex-col items-center p-6 text-white">
+                <span className="font-display text-xl font-medium sm:text-2xl">{cat}</span>
+                <span className="mt-2 flex items-center gap-1 text-xs font-medium uppercase tracking-widest text-white/80 opacity-0 transition-opacity group-hover:opacity-100">
+                  Explore <ArrowRight className="h-3 w-3" />
+                </span>
+              </div>
             </button>
           ))}
         </div>
       </section>
 
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 pb-14 sm:pb-16">
-        <div className="flex items-center justify-between mb-4 sm:mb-5">
-          <h2 className="text-navy text-lg sm:text-2xl font-extrabold flex items-center gap-2">
-            <span className="text-coral">🔥</span> Trending Now
-          </h2>
+      <section className="mx-auto max-w-7xl px-6 pb-24">
+        <div className="mb-10 flex items-end justify-between sm:mb-12">
+          <div>
+            <p className="mb-3 text-xs font-semibold uppercase tracking-[0.25em] text-coral">Best Sellers</p>
+            <h2 className="font-display text-3xl font-medium tracking-tight text-navy sm:text-4xl">
+              Trending Now
+            </h2>
+          </div>
           <button
-            onClick={() => setActivePage('shop')}
-            className="text-coral text-xs sm:text-sm font-semibold hover:text-coral-dark transition-colors"
+            onClick={() => goToCategory('All')}
+            className="group flex items-center gap-1.5 text-sm font-semibold text-navy transition-colors hover:text-coral"
           >
-            View All →
+            View All
+            <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
           </button>
         </div>
-
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4">
-          {dealProducts.map((product) => (
-            <div
-              key={product.id}
-              className="group bg-white rounded-2xl shadow-card hover:shadow-card-hover transition-all p-3.5 sm:p-4 flex flex-col hover:-translate-y-1"
-            >
-              <div
-                className={`relative w-full aspect-square rounded-xl bg-gradient-to-br ${CATEGORY_TINT[product.category]} ring-1 ring-navy/5 flex items-center justify-center text-4xl sm:text-5xl mb-3 overflow-hidden transition-transform group-hover:scale-[1.03]`}
-              >
-                <span className="drop-shadow-sm">{product.icon}</span>
-              </div>
-              <h3 className="text-navy font-medium text-xs sm:text-sm mb-1 line-clamp-2 leading-snug min-h-[2.5em]">
-                {product.name}
-              </h3>
-              <div className="flex items-baseline justify-between mt-1 mb-3">
-                <p className="text-coral font-extrabold text-sm sm:text-lg">
-                  {formatUGX(product.price)}
-                </p>
-                <span className="text-navy/35 text-[10px] sm:text-xs">{product.sold} sold</span>
-              </div>
-              <button
-                onClick={() => addToCart(product)}
-                className="bg-coral hover:bg-coral-dark text-white text-xs sm:text-sm font-semibold py-2 sm:py-2.5 rounded-xl transition-all active:scale-95"
-              >
-                Add to Cart
-              </button>
-            </div>
+        <div className="grid grid-cols-2 gap-x-4 gap-y-10 sm:gap-x-6 lg:grid-cols-4">
+          {trendingProducts.map((product) => (
+            <ProductCard key={product.id} product={product} />
           ))}
         </div>
       </section>

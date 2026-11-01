@@ -1,3 +1,5 @@
+import { CheckCircle2 } from 'lucide-react'
+
 function formatUGX(amount) {
   return `UGX ${amount.toLocaleString()}`
 }
@@ -20,8 +22,8 @@ export default function OrderConfirmation({ lastOrder, setActivePage }) {
   return (
     <div className="max-w-xl mx-auto px-4 py-12 sm:py-16">
       <div className="bg-gradient-to-br from-gold/40 via-coral/10 to-navy/5 rounded-3xl shadow-card p-6 sm:p-10 text-center animate-fade-up">
-        <div className="w-20 h-20 sm:w-24 sm:h-24 mx-auto mb-5 rounded-full bg-white shadow-card flex items-center justify-center text-5xl">
-          ✅
+        <div className="w-20 h-20 sm:w-24 sm:h-24 mx-auto mb-5 rounded-full bg-white shadow-card flex items-center justify-center">
+          <CheckCircle2 className="w-12 h-12 text-emerald-500" strokeWidth={1.75} />
         </div>
         <h1 className="text-navy text-2xl sm:text-3xl font-extrabold mb-2">Order Placed!</h1>
         <p className="text-navy/70 mb-7 text-sm sm:text-base">

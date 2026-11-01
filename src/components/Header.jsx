@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useCart } from '../CartContext.jsx'
-import { CATEGORIES, CATEGORY_ICONS } from '../data/products.js'
+import { Menu, Search, ShoppingBag, X } from 'lucide-react'
+import { CATEGORIES } from '../data/products.js'
 
 export default function Header({
   activePage,
@@ -51,12 +52,9 @@ export default function Header({
       <div className="max-w-7xl mx-auto px-4 sm:px-6 py-3 flex items-center gap-3 sm:gap-6">
         <button
           onClick={() => go('home')}
-          className="flex items-center gap-2 font-extrabold text-base sm:text-lg tracking-tight shrink-0"
+          className="font-display text-xl sm:text-2xl tracking-tight shrink-0"
         >
-          <span className="w-9 h-9 rounded-xl bg-coral flex items-center justify-center text-lg shrink-0">
-            🌹
-          </span>
-          <span className="hidden md:inline">Roseform Mattress</span>
+          Roseform<span className="text-coral">.</span>
         </button>
 
         <form
@@ -101,7 +99,7 @@ export default function Header({
             className="sm:hidden flex items-center justify-center w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 transition-colors"
             aria-label="Toggle search"
           >
-            <span className="text-lg">🔍</span>
+            <Search className="w-5 h-5" />
           </button>
 
           <button
@@ -109,7 +107,7 @@ export default function Header({
             className="relative flex items-center justify-center w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 active:scale-95 transition-all"
             aria-label="View cart"
           >
-            <span className="text-xl">🛒</span>
+            <ShoppingBag className="w-5 h-5" />
             {itemCount > 0 && (
               <span className="absolute -top-1 -right-1 bg-coral text-white text-[11px] font-bold rounded-full min-w-[20px] h-5 px-1 flex items-center justify-center shadow-sm animate-fade-in">
                 {itemCount}
@@ -122,7 +120,7 @@ export default function Header({
             className="md:hidden flex items-center justify-center w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 transition-colors"
             aria-label="Toggle menu"
           >
-            <span className="text-lg">{menuOpen ? '✕' : '☰'}</span>
+            {menuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
           </button>
         </div>
       </div>
@@ -189,7 +187,6 @@ export default function Header({
               }}
               className="flex items-center gap-1.5 text-xs sm:text-sm font-medium text-white/80 hover:text-gold whitespace-nowrap transition-colors"
             >
-              <span>{CATEGORY_ICONS[cat]}</span>
               {cat}
             </button>
           ))}

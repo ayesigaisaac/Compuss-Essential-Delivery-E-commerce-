@@ -56,11 +56,8 @@ export default function App() {
         <main className="flex-1">{renderPage()}</main>
         <footer className="bg-navy text-white/70 mt-8">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 py-8 flex flex-col sm:flex-row items-center justify-between gap-3 text-center sm:text-left">
-            <div className="flex items-center gap-2 font-bold text-white text-sm">
-              <span className="w-7 h-7 rounded-lg bg-coral flex items-center justify-center text-sm">
-                🌹
-              </span>
-              Roseform Mattress
+            <div className="font-display text-lg text-white">
+              Roseform<span className="text-coral">.</span>
             </div>
             <p className="text-xs sm:text-sm">
               © {new Date().getFullYear()} Better sleep, delivered across Uganda 🇺🇬

@@ -22,6 +22,7 @@ export default {
       },
       fontFamily: {
         sans: ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
+        display: ['Fraunces', 'Georgia', 'serif'],
       },
       boxShadow: {
         card: '0 2px 10px rgba(47, 60, 126, 0.06)',
